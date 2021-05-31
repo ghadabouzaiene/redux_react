@@ -1,0 +1,25 @@
+.task {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    background-color: honeydew;
+    margin: 6px 4px;
+    height: 40px;
+    border-radius: 12px;
+
+}
+
+.task>p {
+    flex: 1;
+}
+
+.task--done{
+    text-decoration: line-through;
+}
+
+.btn {
+    width: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size : x-small;
+    background-color: rgb(221, 35, 113);
+}

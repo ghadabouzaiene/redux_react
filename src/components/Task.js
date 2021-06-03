@@ -5,42 +5,58 @@ import {useDispatch} from 'react-redux'
 import {toggledone, deletetodo,edittodo} from '../features/toDoSlice'
 
 
-const Task = ({description,done,id}) => {
+const Task = ({todo,description,done,id}) => {
 
-    const dispatch = useDispatch()
+  const [editable, setEditable] = useState(false)
+  const [name, setName] = useState(description)
+  let dispatch = useDispatch();
 
-
-   
-
-    const handleDone =()=>{
-            dispatch(toggledone({
-                id : id,
-                done:!done,
-            }))
-    }
-
-    const handleDelete =()=> {
-            dispatch(deletetodo({
-                id : id 
-            }))
-    }
-    const handleEdit =(e)=> {
-        description = e.target.value
-        }
-
-    return (
-        <div className="task">
-            <Checkbox
-        checked={done}
-        onChange={handleDone}
-        inputProps={{ 'aria-label': 'primary checkbox' }}/>
-            <p className={done && 'task--done'} >{description}</p>
-            <input type='text' onChange={handleEdit}></input>
-            <button className="btn" onClick={handleEdit}>Edit</button>
-            <button className="btn" onClick={handleDelete}>Delete</button>
-        </div>
-    )
+  const handleDone =()=>{
+    dispatch(toggledone({
+        id : id,
+        done:!done,
+    }))
 }
 
-export default Task
+  return (
+      <div>
+          <div className="task">
+            <Checkbox
+        checked={done}
+        color = "default"
+        onChange={handleDone}
+        inputProps={{ 'aria-label': 'primary checkbox' }}/>
+              <div className="col">
+                  {editable ?
+                      <input type="text" className="form-control"
+                          value={name}
+                          onChange={(e) => {
+                              setName(e.target.value);
+                          }}
 
+                      />
+                      :
+                      <h4>{name}</h4>}
+              </div>
+              <button className="btn"
+                  onClick={() => {
+                      dispatch(edittodo({
+                          ...todo,
+                          name: name
+                      }))
+                      if(editable) {
+                       setName(name);   
+                      }
+                      setEditable(!editable);
+                    
+
+                  }}
+              >{editable?"Update":"Edit"}</button>
+              <button className="btn"
+                  onClick={() => dispatch(deletetodo(todo.id))}
+              >Delete</button>
+          </div>
+      </div>
+  )
+}
+export default Task

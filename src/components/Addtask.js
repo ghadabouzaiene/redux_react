@@ -6,6 +6,8 @@ import {useDispatch} from 'react-redux'
 import {savetodo} from '../features/toDoSlice'
 import {v4 as uuidv4} from 'uuid'
 
+//Adding one element (ie one Task) at once , savetodo is the action responsable for this .
+
 const Addtask = () => {
     const [input,setInput]=useState('')
     const dispatch = useDispatch()

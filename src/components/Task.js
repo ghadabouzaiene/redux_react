@@ -11,10 +11,17 @@ const Task = ({todo,description,done,id}) => {
   const [name, setName] = useState(description)
   let dispatch = useDispatch();
 
+
   const handleDone =()=>{
     dispatch(toggledone({
         id : id,
         done:!done,
+    }))
+}
+
+const handleDelete =()=>{
+    dispatch(deletetodo({
+        id : id
     }))
 }
 
@@ -36,7 +43,7 @@ const Task = ({todo,description,done,id}) => {
 
                       />
                       :
-                      <h4>{name}</h4>}
+                      <h4  className={done && 'task--done'}>{name}</h4>}
               </div>
               <button className="btn"
                   onClick={() => {
@@ -53,7 +60,7 @@ const Task = ({todo,description,done,id}) => {
                   }}
               >{editable?"Update":"Edit"}</button>
               <button className="btn"
-                  onClick={() => dispatch(deletetodo(todo.id))}
+                  onClick={handleDelete}
               >Delete</button>
           </div>
       </div>
